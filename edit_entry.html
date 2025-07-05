@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Entry</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #2c3e50, #34495e);
+            color: white;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+        }
+        * {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Editor */
+        .editor {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .title {
+            font-size: 1.8em;
+            font-weight: bold;
+            border: none;
+            background: transparent;
+            color: white;
+            width: 100%;
+            outline: none;
+        }
+
+        .textarea {
+            flex: 1;
+            font-size: 1.2em;
+            border: none;
+            background: white;
+            color: rgb(23, 20, 20);
+            outline: none;
+            resize: none;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Footer Menu */
+        .footer-menu {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .footer-menu i {
+            font-size: 1.8em;
+            cursor: pointer;
+            color: white;
+            transition: 0.2s;
+        }
+
+        .footer-menu i:hover {
+            transform: scale(1.1);
+            color: #32CDD5;
+        }
+
+        /* Save & Cancel Buttons */
+        .save-button, .cancel-button {
+            background: #27ae60;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin: 10px auto;
+            display: block;
+        }
+
+        .cancel-button {
+            background: #c0392b;
+        }
+        * {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+       /* body {
+            background: linear-gradient(to bottom, #2c3e50, #34495e);
+            color: white;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+        }*/
+
+        /* Editor */
+       /* .editor {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }*/
+
+        /*.title {
+            font-size: 1.8em;
+            font-weight: bold;
+            border: none;
+            background: transparent;
+            color: white;
+            width: 100%;
+            outline: none;
+        }*/
+
+        .date-info {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        /*.textarea {
+            flex: 1;
+            font-size: 1.2em;
+            border: none;
+            background: white;
+            color: rgb(23, 20, 20);
+            outline: none;
+            resize: none;
+            padding: 10px;
+            border-radius: 5px;
+        }*/
+
+        /* Skins */
+        .skins {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .skins button {
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.2s;
+        }
+
+        .skins button:hover {
+            opacity: 0.8;
+        }
+
+        .theme1 { background: linear-gradient(to right, #d78484, #a7484a); }
+        .theme2 { background: linear-gradient(to right, #aadae7, #4dcaf3); }
+        .theme3 { background: linear-gradient(to right, #cbb0e7, #e9588b); }
+        .theme4 { background: linear-gradient(to right, #92eec3, #27bc9e); }
+        .theme5 { background: linear-gradient(to right, #9f7de7, #7952ef); }
+        .theme6 { background: linear-gradient(to right, #e377aa, #ec59be); }
+        /* Footer Menu */
+        .footer-menu {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .footer-menu i {
+            font-size: 1.8em;
+            cursor: pointer;
+            color: white;
+            transition: 0.2s;
+        }
+
+        .footer-menu i:hover {
+            transform: scale(1.1);
+            color: #32CDD5;
+        }
+
+        /* Image Resize */
+        .uploaded-image {
+            max-width: 60%;
+            height: auto;
+            cursor: nwse-resize;
+            margin-top: 10px;
+        }
+
+        /* Dark Mode */
+        .dark-mode {
+            background: black;
+            color: white;
+        }
+
+        /* Alignment */
+        .alignment-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .alignment-options button {
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.2s;
+        }
+
+        .alignment-options button:hover {
+            background: #32CDD5;
+            color: white;
+        }
+
+        /* Save Button */
+        .save-button {
+            background: #27ae60;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin: 10px auto;
+            display: block;
+        }
+         /* Theme Options inside Moon */
+         .theme-container {
+            position: relative;
+        }
+
+        .theme-options {
+            display: none;
+            position: absolute;
+            bottom: 40px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .theme-options button {
+            display: block;
+            width: 100%;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            background: transparent;
+            color: white;
+            text-align: left;
+            transition: 0.2s;
+        }
+
+        .theme-options button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        /* Images & Audio Inside Text Area */
+        .textarea img, .textarea audio {
+            max-width: 100%;
+            display: block;
+            margin: 10px auto;
+            border-radius: 5px;
+        }
+
+        /* Default Border for Images */
+        .textarea img {
+            border: 2px solid white;
+        }
+
+        /* Apply Background to Audio */
+        .textarea audio {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+        .alignment-container {
+    position: relative;
+}
+
+.alignment-options {
+    display: none;
+    position: absolute;
+    bottom: 40px; /* Adjusted to position above the icon */
+    left: -10px;
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+}
+
+.alignment-options button {
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: white;
+    text-align: left;
+    transition: 0.2s;
+}
+
+.alignment-options button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+.stop-button {
+    background: #e74c3c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin: 10px auto;
+    display: block;
+}
+
+.stop-button:hover {
+    background: #c0392b;
+}
+.textarea[contenteditable="true"]:empty:before {
+    content: attr(placeholder);
+    color: gray;
+    pointer-events: none;
+    display: block; /* For Firefox */
+} 
+.textarea img {
+    max-width: 60%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+#editContent img {
+    max-width: 60%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="editor">
+        <input type="text" id="editTitle" class="title" placeholder="Title">
+        <!--<div id="editContent" class="textarea" contenteditable="true"></div>-->
+        <!-- This is correct in edit_entry.html already -->
+<div id="editContent" class="textarea" contenteditable="true"></div>
+    </div>
+
+
+    <!-- Image Upload -->
+    <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="displayImage(event)">
+
+    <!-- Footer Menu -->
+    <div class="footer-menu">
+        <i class='bx bx-plus' onclick="changeFontSize()"></i>
+        <i class='bx bx-minus' onclick="changeSize()"></i>
+        <i class='bx bx-list-ul' onclick="toggleList()"></i>
+        <div class="alignment-container">
+            <i class='bx bx-align-left' onclick="toggleAlignmentMenu()"></i>
+            <div class="alignment-options" id="alignmentOptions">
+                <button onclick="changeAlignment('left')">Left</button>
+                <button onclick="changeAlignment('center')">Center</button>
+                <button onclick="changeAlignment('right')">Right</button>
+                <button onclick="changeAlignment('justify')">Justify</button>
+            </div>
+        </div>
+        <i class='bx bx-time' onclick="insertTime()"></i>
+        <i class='bx bx-image' onclick="document.getElementById('imageInput').click()"></i>
+        <i class='bx bx-microphone' onclick="startRecording()"></i>
+        <div class="theme-container">
+            <i class='bx bx-moon' onclick="toggleThemeMenu()"></i>
+            <div class="theme-options" id="themeOptions">
+                <button class="theme1" onclick="changeTheme('#d78484', '#a7484a')">Theme 1</button>
+                <button class="theme2" onclick="changeTheme('#aadae7', '#4dcaf3')">Theme 2</button>
+                <button class="theme3" onclick="changeTheme('#cbb0e7', '#e9588b')">Theme 3</button>
+                <button class="theme4" onclick="changeTheme(' #92eec3', '#27bc9e')">Theme 4</button>
+                <button class="theme5" onclick="changeTheme('#9f7de7', '#7952ef')">Theme 5</button>
+                <button class="theme6" onclick="changeTheme('#e377aa', '#ec59be')">Theme 6</button>
+            </div>
+        </div>
+    </div>
+    <button id="stopRecordingButton" class="stop-button" onclick="stopRecording()" style="display: none;">
+        Stop Recording
+    </button>
+
+    <button class="save-button" onclick="saveEditedEntry()">Save Changes</button>
+    <button class="cancel-button" onclick="cancelEdit()">Cancel</button>
+
+    <script>
+/*document.addEventListener("DOMContentLoaded", function () {
+    let index = localStorage.getItem("editEntryIndex");
+    let savedEntries = JSON.parse(localStorage.getItem("entries")) || [];
+
+    if (index !== null && savedEntries[index]) {
+        // Load title
+        document.getElementById("editTitle").value = savedEntries[index].title;
+
+        // Load content as HTML
+        document.getElementById("editContent").innerHTML = savedEntries[index].content || "";
+
+        // Check and restore audio if exists
+        if (savedEntries[index].audio) {
+            let audio = document.createElement("audio");
+            audio.src = savedEntries[index].audio;
+            audio.controls = true;
+            audio.style.display = "block";
+            audio.style.margin = "10px auto";
+            document.getElementById("editContent").appendChild(audio);
+        }
+    } else {
+        alert("Entry not found!");
+        window.location.href = "dd_saved_entries.html";
+    }
+});*/
+
+
+// **Save Edited Entry (Text, Images, and Audio)**
+/*function saveEditedEntry() {
+    let index = localStorage.getItem("editEntryIndex");
+    let savedEntries = JSON.parse(localStorage.getItem("entries")) || [];
+
+    if (index !== null && savedEntries[index]) {
+        savedEntries[index].title = document.getElementById("editTitle").value.trim();
+        savedEntries[index].content = document.getElementById("editContent").innerHTML; // Preserve all formatting
+
+        localStorage.setItem("entries", JSON.stringify(savedEntries));
+        alert("Entry updated successfully!");
+        window.location.href = "dd_saved_entries.html";
+    }
+}*/
+
+// **Cancel Editing**
+function cancelEdit() {
+    window.location.href = "dd_saved_entries.html";
+}
+
+// **Upload & Display Image in Edit Mode**
+/*function displayImage(event) {
+    let file = event.target.files[0];
+    if (file) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            let img = document.createElement("img");
+            img.src = e.target.result;
+            img.style.maxWidth = "100%";
+            img.style.display = "block";
+            img.style.margin = "10px auto";
+            img.style.border = "2px solid white";
+
+            document.getElementById("editContent").appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    }
+}*/
+document.addEventListener("DOMContentLoaded", function () {
+    // Load saved theme if exists
+    let savedTheme = JSON.parse(localStorage.getItem("selectedTheme"));
+    if (savedTheme) {
+        changeTheme(savedTheme.color1, savedTheme.color2);
+    }
+
+    // Load the entry to edit
+    let index = localStorage.getItem("editEntryIndex");
+    let savedEntries = JSON.parse(localStorage.getItem("entries")) || [];
+
+    if (index !== null && savedEntries[index]) {
+        document.getElementById("editTitle").value = savedEntries[index].title;
+        document.getElementById("editContent").innerHTML = savedEntries[index].content || "";
+    } else {
+        alert("Entry not found!");
+        window.location.href = "dd_saved_entries.html";
+    }
+});
+
+// Modified displayImage function to handle both creating and saving images
+/*function displayImage(event) {
+    let file = event.target.files[0];
+    if (file) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            let img = document.createElement("img");
+            img.src = e.target.result;
+            img.style.maxWidth = "100%";
+            img.style.display = "block";
+            img.style.margin = "10px auto";
+            img.style.border = "2px solid white";
+            
+            // Add to edit content area
+            document.getElementById("editContent").appendChild(img);
+            
+            // Auto-save the entry with the new image
+            setTimeout(saveEditedEntry, 100);
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+// Enhanced save function to properly preserve images
+function saveEditedEntry() {
+    let index = localStorage.getItem("editEntryIndex");
+    let savedEntries = JSON.parse(localStorage.getItem("entries")) || [];
+
+    if (index !== null && savedEntries[index]) {
+        // Get all images in the content
+        let images = document.getElementById("editContent").querySelectorAll("img");
+        
+        // Update each image src to ensure they're preserved
+        images.forEach(img => {
+            if (img.src.startsWith("data:")) {
+                // Image is already in base64 format, no need to modify
+            } else {
+                // Convert to base64 if needed (for future enhancements)
+            }
+        });
+
+        // Save the updated content
+        savedEntries[index].title = document.getElementById("editTitle").value.trim();
+        savedEntries[index].content = document.getElementById("editContent").innerHTML;
+
+        localStorage.setItem("entries", JSON.stringify(savedEntries));
+        return true;
+    }
+    return false;
+}*/
+// Replace your displayImage function with this:
+function displayImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.style.maxWidth = "100%";
+            img.style.display = "block";
+            img.style.margin = "10px auto";
+            img.style.border = "2px solid white";
+            
+            // Append to the edit content div
+            const editContent = document.getElementById("editContent");
+            editContent.appendChild(img);
+            
+            // Focus back on the content area
+            editContent.focus();
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+// Update your saveEditedEntry function:
+function saveEditedEntry() {
+    const index = localStorage.getItem("editEntryIndex");
+    const savedEntries = JSON.parse(localStorage.getItem("entries")) || [];
+
+    if (index !== null && savedEntries[index]) {
+        // Process all images to ensure they're properly saved
+        const editContent = document.getElementById("editContent");
+        const images = editContent.getElementsByTagName("img");
+        
+        // Update entry data
+        savedEntries[index].title = document.getElementById("editTitle").value.trim();
+        savedEntries[index].content = editContent.innerHTML;
+
+        localStorage.setItem("entries", JSON.stringify(savedEntries));
+        alert("Entry updated successfully!");
+        window.location.href = "dd_saved_entries.html";
+        return true;
+    }
+    alert("Error saving entry!");
+    return false;
+}
+
+
+
+
+
+
+
+// **Cancel Editing**
+function cancelEdit() {
+    window.location.href = "dd_saved_entries.html";
+}
+
+        function changeFontSize() {
+            let textArea = document.querySelector(".textarea");
+            let currentSize = window.getComputedStyle(textArea).fontSize;
+            textArea.style.fontSize = (parseInt(currentSize) + 2) + "px";
+        }
+
+
+        function changeSize() {
+            let textArea = document.querySelector(".textarea");
+            let currentSize = window.getComputedStyle(textArea).fontSize;
+            textArea.style.fontSize = (parseInt(currentSize) - 2) + "px";
+        }
+
+        function toggleList() {
+            let textArea = document.querySelector(".textarea");
+            textArea.innerHTML += "<br>• ";
+        }
+
+        function insertTime() {
+            let textArea = document.querySelector(".textarea");
+            let now = new Date().toLocaleTimeString();
+            textArea.innerHTML += "<br>" + now;
+        }
+
+        function displayImage(event) {
+            let file = event.target.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    let img = document.createElement("img");
+                    img.src = e.target.result;
+                    img.classList.add("uploaded-image");
+                    img.style.width = "100%";
+                    img.style.maxWidth = "500px";
+                    img.draggable = true;
+                    img.onmousedown = function(event) {
+                        document.onmousemove = function(e) {
+                            img.style.width = e.clientX - img.offsetLeft + "px";
+                        };
+                        document.onmouseup = function() {
+                            document.onmousemove = null;
+                        };
+                    };
+                    document.querySelector(".editor").appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+
+function makeImageResizable(img) {
+    img.style.resize = "both";
+    img.style.overflow = "auto";
+    img.style.cursor = "nwse-resize";
+
+    img.addEventListener("mousedown", function (e) {
+        e.preventDefault();
+        let startX = e.clientX;
+        let startY = e.clientY;
+        let startWidth = img.offsetWidth;
+        let startHeight = img.offsetHeight;
+
+        function resizeImage(e) {
+            img.style.width = startWidth + (e.clientX - startX) + "px";
+            img.style.height = startHeight + (e.clientY - startY) + "px";
+        }
+
+        function stopResize() {
+            document.removeEventListener("mousemove", resizeImage);
+            document.removeEventListener("mouseup", stopResize);
+        }
+
+        document.addEventListener("mousemove", resizeImage);
+        document.addEventListener("mouseup", stopResize);
+    });
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    let index = localStorage.getItem("editEntryIndex");
+    let savedEntries = JSON.parse(localStorage.getItem("entries")) || [];
+
+    if (index !== null && savedEntries[index]) {
+        document.getElementById("editTitle").value = savedEntries[index].title;
+        document.getElementById("editContent").innerHTML = savedEntries[index].content;
+
+        // Restore Audio
+        if (savedEntries[index].audio) {
+            let audio = document.createElement("audio");
+            audio.src = savedEntries[index].audio;
+            audio.controls = true;
+            audio.style.display = "block";
+            audio.style.margin = "10px auto";
+            document.getElementById("editContent").appendChild(audio);
+        }
+    } else {
+        alert("Entry not found!");
+        window.location.href = "dd_saved_entries.html";
+    }
+});
+
+function stopRecording() {
+    if (mediaRecorder) {
+        mediaRecorder.stop();
+        alert("Recording stopped.");
+        document.getElementById("stopRecordingButton").style.display = "none";
+    }
+}
+function toggleThemeMenu() {
+    let menu = document.getElementById("themeOptions");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+function changeTheme(color1, color2) {
+    document.body.style.background = `linear-gradient(to right, ${color1}, ${color2})`;
+
+    let textArea = document.querySelector(".textarea");
+    textArea.style.background = `linear-gradient(to right, ${color1}, ${color2})`;
+    textArea.style.color = "white";
+
+    let images = textArea.querySelectorAll("img");
+    images.forEach(img => img.style.border = `3px solid ${color2}`);
+
+    let audios = textArea.querySelectorAll("audio");
+    audios.forEach(audio => audio.style.background = color1);
+
+    // Save theme to localStorage
+    localStorage.setItem("selectedTheme", JSON.stringify({ color1, color2 }));
+
+    // Hide the theme menu
+    document.getElementById("themeOptions").style.display = "none";
+}
+
+
+// Apply the saved theme when the page loads
+document.addEventListener("DOMContentLoaded", function () {
+    let savedTheme = JSON.parse(localStorage.getItem("selectedTheme"));
+    if (savedTheme) {
+        changeTheme(savedTheme.color1, savedTheme.color2);
+    }
+});
+function toggleAlignmentMenu() {
+            let menu = document.getElementById("alignmentOptions");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+    let savedTheme = JSON.parse(localStorage.getItem("selectedTheme"));
+    if (savedTheme) {
+        changeTheme(savedTheme.color1, savedTheme.color2);
+    }
+
+    let savedAlignment = localStorage.getItem("selectedAlignment");
+    if (savedAlignment) {
+        document.getElementById("editContent").style.textAlign = savedAlignment;
+    }
+});
+function changeAlignment(alignment) {
+    let textArea = document.getElementById("editContent");
+    textArea.style.textAlign = alignment;
+
+    // Save alignment setting
+    localStorage.setItem("selectedAlignment", alignment);
+
+    // Hide alignment menu
+    document.getElementById("alignmentOptions").style.display = "none";
+}
+
+// Apply saved alignment when the page loads
+document.addEventListener("DOMContentLoaded", function () {
+    let savedAlignment = localStorage.getItem("selectedAlignment");
+    if (savedAlignment) {
+        document.getElementById("editContent").style.textAlign = savedAlignment;
+    }
+});
+function startRecording() {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+            mediaRecorder = new MediaRecorder(stream);
+            audioChunks = [];
+
+            mediaRecorder.ondataavailable = event => {
+                audioChunks.push(event.data);
+            };
+
+            mediaRecorder.onstop = async () => {
+                let blob = new Blob(audioChunks, { type: 'audio/webm' });
+
+                // Convert to Base64
+                let reader = new FileReader();
+                reader.readAsDataURL(blob);
+                reader.onloadend = function () {
+                    let audioBase64 = reader.result;
+
+                    // Create audio element
+                    let audio = document.createElement("audio");
+                    audio.src = audioBase64;
+                    audio.controls = true;
+                    audio.style.display = "block";
+                    audio.style.margin = "10px auto";
+
+                    document.getElementById("editContent").appendChild(audio);
+
+                    // Save to localStorage
+                    let savedEntries = JSON.parse(localStorage.getItem("entries")) || [];
+                    let index = localStorage.getItem("editEntryIndex");
+
+                    if (index !== null && savedEntries[index]) {
+                        savedEntries[index].audio = audioBase64;
+                        localStorage.setItem("entries", JSON.stringify(savedEntries));
+                    }
+                };
+
+                // Hide stop button after stopping
+                document.getElementById("stopRecordingButton").style.display = "none";
+            };
+
+            mediaRecorder.start();
+
+            // Show stop button
+            document.getElementById("stopRecordingButton").style.display = "block";
+
+            alert("Recording started. Click 'Stop Recording' to finish.");
+        })
+        .catch(error => alert("Microphone access denied. Check permissions."));
+}
+document.addEventListener("DOMContentLoaded", function() {
+    let index = localStorage.getItem("editEntryIndex");
+    let savedEntries = JSON.parse(localStorage.getItem("entries")) || [];
+
+    if (index !== null && savedEntries[index]) {
+        // Load title
+        document.getElementById("editTitle").value = savedEntries[index].title;
+        
+        // Load content
+        let editContent = document.getElementById("editContent");
+        editContent.innerHTML = savedEntries[index].content || "";
+        
+        // Apply saved alignment if it exists
+        if (savedEntries[index].alignment) {
+            editContent.style.textAlign = savedEntries[index].alignment;
+        } else {
+            // Default to center if no alignment is saved
+            editContent.style.textAlign = "center";
+        }
+    } else {
+        alert("Entry not found!");
+        window.location.href = "dd_saved_entries.html";
+    }
+});
+function displayImage(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = document.createElement("img");
+        img.src = e.target.result;
+        img.style.maxWidth = "100%";
+        img.style.display = "block";
+        img.style.margin = "10px auto";
+        img.style.border = "2px solid white";
+        
+        // Add to edit content area
+        const editContent = document.getElementById("editContent");
+        editContent.appendChild(img);
+        
+        // Focus back on content
+        editContent.focus();
+    };
+    reader.readAsDataURL(file);
+}
+async function saveEditedEntry() {
+    const index = localStorage.getItem("editEntryIndex");
+    const savedEntries = JSON.parse(localStorage.getItem("entries")) || [];
+
+    if (index !== null && savedEntries[index]) {
+        // Process all images to ensure they're properly saved
+        const editContent = document.getElementById("editContent");
+        const images = editContent.getElementsByTagName("img");
+        
+        try {
+            // Convert any non-base64 images (like blob URLs) to base64
+            await Promise.all(Array.from(images).map(async (img) => {
+                if (!img.src.startsWith('data:')) {
+                    try {
+                        const response = await fetch(img.src);
+                        const blob = await response.blob();
+                        img.src = await new Promise((resolve) => {
+                            const reader = new FileReader();
+                            reader.onload = () => resolve(reader.result);
+                            reader.onerror = () => resolve(img.src); // Fallback to original if conversion fails
+                            reader.readAsDataURL(blob);
+                        });
+                    } catch (error) {
+                        console.error("Error converting image:", error);
+                        // Keep original src if conversion fails
+                    }
+                }
+            }));
+
+            // Update entry data
+            savedEntries[index].title = document.getElementById("editTitle").value.trim();
+            savedEntries[index].content = editContent.innerHTML;
+
+            localStorage.setItem("entries", JSON.stringify(savedEntries));
+            alert("Entry updated successfully!");
+            window.location.href = "dd_saved_entries.html";
+            return true;
+        } catch (error) {
+            console.error("Error saving entry:", error);
+            alert("Error saving entry. See console for details.");
+            return false;
+        }
+    }
+    alert("Error: Entry not found!");
+    return false;
+}
+document.addEventListener("DOMContentLoaded", async function() {
+    const index = localStorage.getItem("editEntryIndex");
+    const savedEntries = JSON.parse(localStorage.getItem("entries")) || [];
+
+    if (index !== null && savedEntries[index]) {
+        document.getElementById("editTitle").value = savedEntries[index].title;
+        document.getElementById("editContent").innerHTML = savedEntries[index].content || "";
+    } else {
+        alert("Entry not found!");
+        window.location.href = "dd_saved_entries.html";
+    }
+});
+
+    </script>
+
+</body>
+</html>

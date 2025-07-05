@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Diary - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+        * {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: url('background.jpg') no-repeat center center/cover;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(#bde, #e2e2e2, #c9d6ff);
+        }
+
+        /* Header */
+        .header {
+            width: 100%;
+            padding: 30px 50px;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: black;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: black;
+        }
+
+        .user-name {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Content */
+        .content {
+            text-align: center;
+            margin-top: 50px;
+            color: black;
+        }
+
+        .content h1 {
+            font-size: 2.5em;
+            color: black;
+        }
+
+        .content p {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: black;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #32CDD5;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #32CDD5;
+            color: white;
+            border: 1px solid white;
+        }
+
+        /* Footer */
+      footer {
+        background: rgba(0, 0, 0, 0.2);
+        color: white;
+        padding: 20px;
+        margin-top: 30px;
+        text-align: center;
+      }
+      .avatar-placeholder {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 2px dashed #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: bold;
+        color: #aaa;
+        background: white;
+        margin: auto;
+        cursor: pointer;
+      }
+      /* Footer Styling */
+      footer {
+        background: rgba(0, 0, 0, 0.2);
+        color: rgb(21, 19, 19);
+        padding: 40px 20px;
+        text-align: center;
+      }
+
+      .footer-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: auto;
+        padding-bottom: 20px;
+      }
+
+      .footer-info,
+      .footer-social,
+      .footer-contact {
+        flex: 1;
+        min-width: 250px;
+        margin-bottom: 20px;
+      }
+
+      .footer-info h2 {
+        color: #0b0c0c;
+        margin-bottom: 10px;
+      }
+
+      .footer-info p {
+        font-size: 14px;
+        opacity: 0.8;
+      }
+
+      .footer-social h3,
+      .footer-contact h3 {
+        margin-bottom: 15px;
+        font-size: 18px;
+      }
+
+      .footer-contact a {
+        color: #0a0a0a;
+        text-decoration: none;
+      }
+
+      .footer-contact a:hover {
+        text-decoration: underline;
+      }
+
+      /* Social Icons */
+      .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .social-icon {
+        font-size: 24px;
+        color: rgb(11, 10, 10);
+        text-decoration: none;
+        transition: transform 0.3s ease, color 0.3s ease;
+        padding: 10px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+      /* Hover effects with platform colors */
+      #insta:hover {
+        color: #e4405f;
+        transform: scale(1.2);
+        background: #fff;
+        border-radius: 50%;
+      }
+      #google:hover {
+        color: #db4437;
+        transform: scale(1.2);
+        background: #fff;
+        border-radius: 50%;
+      }
+      #twitter:hover {
+        color: #1da1f2;
+        transform: scale(1.2);
+        background: #fff;
+        border-radius: 50%;
+      }
+      #facebook:hover {
+        color: #3b5998;
+        transform: scale(1.2);
+        background: #fff;
+        border-radius: 50%;
+      }
+
+      .footer-bottom {
+        margin-top: 20px;
+        font-size: 14px;
+        opacity: 0.7;
+      }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo"><i class='bx bxs-book'></i> Digital Diary</div>
+        <nav class="nav-links">
+            <a href="dd_index.html"><i class='bx bxs-book-open'></i> My Entries</a>
+            <a href="dd_settings.html"><i class='bx bxs-cog'></i> Settings</a>
+            <a href="dd_about.html"><i class='bx bxs-info-circle'></i> About Us</a>
+            <a href="dd_login.html"><i class='bx bxs-log-out'></i> Logout</a>
+        </nav>
+        <div class="user-name"><i class='bx bxs-user'></i> <span id="username">Guest</span></div>
+    </header>
+
+    <!-- Home Content -->
+    <section class="content">
+        <h1>Welcome to Your Digital Diary</h1>
+        <p>Capture your thoughts, memories, and experiences in a secure and beautifully designed space.</p>
+        <div class="buttons">
+            <a href="dd_entries.html" class="button btn-primary">Start Writing</a>
+            <a href="dd_saved_entries.html" class="button btn-secondary">View Entries</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+          <div class="footer-info">
+            <h2>Digital Diary</h2>
+            <p>
+              "Capture Your Thoughts, One Entry at a Time."✨📖
+            </p>
+          </div>
+  
+          <div class="footer-social">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+              <a href="#" class="social-icon" id="insta"
+                ><i class="fa fa-instagram"></i
+              ></a>
+              <a href="#" class="social-icon" id="google"
+                ><i class="fa fa-google"></i
+              ></a>
+              <a href="#" class="social-icon" id="twitter"
+                ><i class="fa fa-twitter"></i
+              ></a>
+              <a href="#" class="social-icon" id="facebook"
+                ><i class="fa fa-facebook"></i
+              ></a>
+            </div>
+          </div>
+  
+          <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p>
+              Email:
+              <a href="mailto:support@digitaldiary.com">support@digitaldiary.com</a>
+            </p>
+            <p>Phone: +1 (123) 456-7890</p>
+          </div>
+        </div>
+  
+        <p class="footer-bottom">© 2025 Diary. All rights reserved.</p>
+      </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        const savedUsername = localStorage.getItem("diaryUsername");
+        if (savedUsername) {
+          document.getElementById("username").innerText = savedUsername;
+        }
+      });
+    </script>
+
+</body>
+</html>

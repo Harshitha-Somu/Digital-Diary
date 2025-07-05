@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Entries - Digital Diary</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        * {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #b8d8ee, #e2e2e2, #c9d6ff);
+            color: #333;
+        }
+        
+        /* Header */
+        .header {
+            width: 100%;
+            padding: 20px 50px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #333;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #0e8ccf;
+            transform: translateY(-2px);
+        }
+
+        .user-name {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 20px 0;
+            color: #333;
+            font-size: 2rem;
+        }
+
+        /* Calendar Container */
+        #calendarContainer {
+            max-width: 750px;
+            margin: 30px auto;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #333;
+        }
+
+        .calendar-header button {
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .calendar-header button:hover {
+            background: #0e8ccf;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+
+        .day-name {
+            font-weight: bold;
+            text-align: center;
+            padding: 12px 0;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.05);
+            color: #333;
+        }
+
+        .calendar-day {
+            min-height: 100px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            padding: 8px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .calendar-day:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .calendar-day.today {
+            background: rgba(14, 140, 207, 0.2);
+            border: 2px solid #0e8ccf;
+        }
+
+        .calendar-day.has-entries {
+            background: rgba(103, 58, 183, 0.1);
+            border: 1px solid rgba(103, 58, 183, 0.3);
+        }
+
+        .date-number {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .entry-title {
+            margin-top: 2px;
+            padding: 3px 6px;
+            background-color: #0e8ccf;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: block;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .entry-title:hover {
+            background-color: #0b76b0;
+            transform: translateX(2px);
+        }
+
+        /* Entry Options Modal */
+        #entryOptions {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+            width: 300px;
+            max-width: 90%;
+        }
+
+        #entryOptions h3 {
+            margin-bottom: 15px;
+            color: #333;
+            text-align: center;
+        }
+
+        #entryOptions button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        #entryOptions button:nth-child(2) {
+            background: #0e8ccf;
+            color: white;
+        }
+
+        #entryOptions button:nth-child(3) {
+            background: #b74b40;
+            color: white;
+        }
+
+        #entryOptions button:nth-child(4) {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        #entryOptions button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Overlay */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.3);
+            color: #333;
+            padding: 40px 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            margin-top: auto;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: auto;
+            padding-bottom: 20px;
+        }
+
+        .footer-info,
+        .footer-social,
+        .footer-contact {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+
+        .footer-info h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .footer-info p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .footer-social h3,
+        .footer-contact h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .footer-contact a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .footer-contact a:hover {
+            text-decoration: underline;
+            color: #0e8ccf;
+        }
+
+        /* Social Icons */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-icon {
+            font-size: 24px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* Hover effects with platform colors */
+        #insta:hover {
+            color: #e4405f;
+            transform: scale(1.2);
+            background: #fff;
+        }
+        #google:hover {
+            color: #db4437;
+            transform: scale(1.2);
+            background: #fff;
+        }
+        #twitter:hover {
+            color: #1da1f2;
+            transform: scale(1.2);
+            background: #fff;
+        }
+        #facebook:hover {
+            color: #3b5998;
+            transform: scale(1.2);
+            background: #fff;
+        }
+
+        .footer-bottom {
+            margin-top: 20px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            #calendarContainer {
+                padding: 15px;
+            }
+            
+            .calendar-day {
+                min-height: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+                height: auto;
+                padding: 15px;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .calendar-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .calendar-header h2 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo"><i class='bx bxs-book'></i> Digital Diary</div>
+        <nav class="nav-links">
+            <a href="dd_index.html"><i class='bx bxs-book-open'></i> My Entries</a>
+            <a href="dd_settings.html"><i class='bx bxs-cog'></i> Settings</a>
+            <a href="dd_about.html"><i class='bx bxs-info-circle'></i> About Us</a>
+            <a href="dd_login.html"><i class='bx bxs-log-out'></i> Logout</a>
+        </nav>
+        <div class="user-name"><i class='bx bxs-user'></i> <span id="username">Guest</span></div>
+    </header>
+
+    <div class="main-content">
+        <h2>Your Diary Calendar</h2>
+        <div id="calendarContainer">
+            <div class="calendar-header">
+                <button onclick="changeMonth(-1)">❮ Previous</button>
+                <h2 id="calendarTitle"></h2>
+                <button onclick="changeMonth(1)">Next ❯</button>
+            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+    </div>
+    
+    <!-- Entry Options Modal -->
+    <div id="entryOptions">
+        <h3 id="popupTitle">Entry Options</h3>
+        <button onclick="openEntry()">Edit Entry</button>
+        <button onclick="deleteSelectedEntry()">Delete Entry</button>
+        <button onclick="closeEntryOptions()">Cancel</button>
+    </div>
+    
+    <!-- Background Overlay -->
+    <div id="overlay" onclick="closeEntryOptions()"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <h2>Digital Diary</h2>
+                <p>"Capture Your Thoughts, One Entry at a Time."✨📖</p>
+            </div>
+
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon" id="insta"><i class="fa fa-instagram"></i></a>
+                    <a href="#" class="social-icon" id="google"><i class="fa fa-google"></i></a>
+                    <a href="#" class="social-icon" id="twitter"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="social-icon" id="facebook"><i class="fa fa-facebook"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p>Email: <a href="mailto:support@digitaldiary.com">support@digitaldiary.com</a></p>
+                <p>Phone: +1 (123) 456-7890</p>
+            </div>
+        </div>
+
+        <p class="footer-bottom">© 2025 Digital Diary. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let currentDate = new Date();
+        let selectedEntryIndex = null;
+    
+        // Initialize the application
+        document.addEventListener("DOMContentLoaded", function() {
+            // Load user data
+            const savedUsername = localStorage.getItem("diaryUsername");
+            if (savedUsername) {
+                document.getElementById("username").innerText = savedUsername;
+            }
+            
+            // Load calendar
+            loadCalendar();
+            
+            // Check if we have entries in localStorage, if not initialize with sample data
+            if (!localStorage.getItem("entries")) {
+                initializeSampleData();
+            }
+        });
+    
+        // Initialize with some sample data if no entries exist
+        function initializeSampleData() {
+            const sampleEntries = [
+                {
+                    title: "Welcome to Digital Diary",
+                    content: "This is your first entry. Start writing your thoughts here!",
+                    date: new Date().toISOString()
+                },
+                {
+                    title: "Example Entry",
+                    content: "You can edit or delete this entry anytime.",
+                    date: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString()
+                }
+            ];
+            localStorage.setItem("entries", JSON.stringify(sampleEntries));
+        }
+    
+        // Load and display the calendar
+        function loadCalendar() {
+            const entries = JSON.parse(localStorage.getItem("entries")) || [];
+            const grid = document.getElementById("calendarGrid");
+            const title = document.getElementById("calendarTitle");
+    
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            const today = new Date();
+    
+            // Get first and last day of the month
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const startDay = firstDay.getDay(); // Day of week (0-6)
+            const daysInMonth = lastDay.getDate();
+    
+            // Day names for header
+            const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            grid.innerHTML = "";
+    
+            // Create day name headers
+            dayNames.forEach(day => {
+                const dayDiv = document.createElement("div");
+                dayDiv.className = "day-name";
+                dayDiv.innerText = day;
+                grid.appendChild(dayDiv);
+            });
+    
+            // Add empty cells for days before the first day of the month
+            for (let i = 0; i < startDay; i++) {
+                const empty = document.createElement("div");
+                grid.appendChild(empty);
+            }
+    
+            // Create cells for each day of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const cellDate = new Date(year, month, day);
+                const dayCell = document.createElement("div");
+                dayCell.className = "calendar-day";
+                
+                // Highlight today's date
+                if (cellDate.getDate() === today.getDate() && 
+                    cellDate.getMonth() === today.getMonth() && 
+                    cellDate.getFullYear() === today.getFullYear()) {
+                    dayCell.classList.add("today");
+                }
+    
+                // Add date number
+                const dateLabel = document.createElement("div");
+                dateLabel.className = "date-number";
+                dateLabel.innerText = day;
+                dayCell.appendChild(dateLabel);
+    
+                // Find entries for this day
+                const dayEntries = entries.filter(entry => {
+                    if (!entry.date) return false;
+                    const eDate = new Date(entry.date);
+                    return (
+                        eDate.getDate() === cellDate.getDate() &&
+                        eDate.getMonth() === cellDate.getMonth() &&
+                        eDate.getFullYear() === cellDate.getFullYear()
+                    );
+                });
+    
+                // Add entries to the day cell
+                dayEntries.forEach((entry, index) => {
+                    const entryDiv = document.createElement("span");
+                    entryDiv.className = "entry-title";
+                    entryDiv.innerText = entry.title || "Untitled Entry";
+                    entryDiv.onclick = (e) => {
+                        e.stopPropagation();
+                        showEntryOptions(entries.findIndex(e => e.date === entry.date && e.title === entry.title));
+                    };
+                    dayCell.appendChild(entryDiv);
+                });
+    
+                // Highlight days with entries
+                if (dayEntries.length > 0) {
+                    dayCell.classList.add("has-entries");
+                }
+    
+                // Add click handler for the day cell
+                dayCell.onclick = function() {
+                    const formattedDate = cellDate.toISOString().split('T')[0];
+                    window.location.href = `edit_entry.html?date=${formattedDate}`;
+                };
+    
+                grid.appendChild(dayCell);
+            }
+    
+            // Set calendar title
+            title.innerText = `${firstDay.toLocaleString("default", { month: "long" })} ${year}`;
+        }
+    
+        // Change month (delta can be -1 or 1)
+        function changeMonth(delta) {
+            currentDate.setMonth(currentDate.getMonth() + delta);
+            loadCalendar();
+        }
+    
+        // Show entry options popup
+        function showEntryOptions(entryIndex) {
+            selectedEntryIndex = entryIndex;
+            const entries = JSON.parse(localStorage.getItem("entries")) || [];
+            const entry = entries[entryIndex];
+            document.getElementById("popupTitle").innerText = entry.title || "Untitled Entry";
+            document.getElementById("entryOptions").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        }
+    
+        // Close entry options popup
+        function closeEntryOptions() {
+            selectedEntryIndex = null;
+            document.getElementById("entryOptions").style.display = "none";
+            document.getElementById("overlay").style.display = "none";
+        }
+    
+        // Open selected entry for editing
+        function openEntry() {
+            if (selectedEntryIndex !== null) {
+                localStorage.setItem("editEntryIndex", selectedEntryIndex);
+                window.location.href = "edit_entry.html";
+            }
+        }
+    
+        // Delete selected entry
+        function deleteSelectedEntry() {
+            if (selectedEntryIndex !== null) {
+                let entries = JSON.parse(localStorage.getItem("entries")) || [];
+                if (confirm("Are you sure you want to delete this entry?")) {
+                    entries.splice(selectedEntryIndex, 1);
+                    localStorage.setItem("entries", JSON.stringify(entries));
+                    closeEntryOptions();
+                    loadCalendar();
+                }
+            }
+        }
+    
+        // Helper function to format date
+        function formatDate(date) {
+            return date.toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+        }
+    </script>
+</body>
+</html>

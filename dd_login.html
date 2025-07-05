@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Sign-up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css">
+    
+    <style>
+        * {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(#bde, #e2e2e2, #c9d6ff);
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            background: rgba(112, 53, 231, 0.1);
+            width: 370px;
+            padding: 50px;
+            border-radius: 16px;
+            border: solid 5px rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            box-shadow: 0px 0px 30px 20px rgba(0, 0, 0, 0.1);
+            color: rgb(17, 15, 15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .login-title {
+            margin-bottom: 16px;
+            color: black;
+        }
+
+        .input-box {
+            display: flex;
+            width: 100%;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 10px 16px 10px 38px;
+            border-radius: 99px;
+            border: solid 3px transparent;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            caret-color: rgb(14, 13, 13);
+            color: rgb(7, 7, 7);
+            font-weight: 500;
+            transition: 0.25s;
+        }
+
+        .input-box input:focus {
+            border: solid 3px rgba(97, 80, 80, 0.25);
+        }
+
+        .input-box i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 14px;
+            color: rgba(15, 15, 15, 0.75);
+            font-size: 18px;
+            transition: 0.25s;
+        }
+
+        .input-box input:focus + i {
+            color: rgb(8, 8, 8);
+        }
+
+        .remember-forgot-box {
+            display: flex;
+            width: 100%;
+            margin-top: 16px;
+            justify-content: space-between;
+        }
+
+        .forgot-password {
+            color: rgb(12, 11, 11);
+            text-decoration: none;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 10px 0;
+            background: #32CDD5;
+            border: none;
+            border-radius: 99px;
+            color: rgb(13, 12, 12);
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            outline: transparent 3px solid;
+            transition: 0.1s;
+        }
+
+        .login-button:focus {
+            outline: #32CDD58A 3px solid;
+        }
+
+        .dont-have-an-account {
+            font-weight: normal;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .dont-have-an-account a {
+            color: rgb(19, 18, 18);
+            text-decoration: none;
+        }
+
+        .dont-have-an-account a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Login Form -->
+        <form class="form" id="login-form" onsubmit="return loginUser(event)">
+            <h1 class="login-title">Login</h1>
+            
+            <div class="input-box">
+                <input type="text" name="username" id="username" placeholder="Username" required>
+                <i class='bx bxs-user'></i>
+            </div>
+        
+            <div class="input-box">
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <i class='bx bxs-lock-alt'></i>
+            </div>
+        <center>
+            <!-- Added margin-top class to create space -->
+            <div class="login-options" style="margin-top:25px;">
+                <div class="remember-me">
+                    <input type="checkbox" name="remember-me" id="remember-me">
+                    <label for="remember-me">Remember me</label>
+                </div>
+                <div class="forgot-password" style="text-decoration: none; margin-top: 10px;">
+                    <a style="text-decoration: none; color: #000;" href="#">Forgot password?</a>
+                </div>
+            </div>
+        </center>
+            <button class="login-button" type="submit">Login</button>
+        
+            <div class="register-link" style="margin-top: 10px;">
+                Don't have an account? <a style="text-decoration: none; color: black;" href="#" onclick="showSignUp()"><strong>Register</strong></a>
+            </div>
+        </form>
+
+        <!-- Sign-up Form (Initially Hidden) -->
+        <form class="form" id="signup-form" style="display: none;">
+            <h1 class="login-title">Sign Up</h1>
+
+            <div class="input-box">
+                <input type="text" name="username" placeholder="Username" required>
+                <i class='bx bxs-user'></i>
+            </div>
+
+            <div class="input-box">
+                <input type="email" name="email" placeholder="Email" required>
+                <i class='bx bxs-envelope'></i>
+            </div>
+
+            <div class="input-box">
+                <input type="password" name="password" placeholder="Password" required>
+                <i class='bx bxs-lock-alt'></i>
+            </div>
+
+            <div class="input-box">
+                <input type="password" name="confirm-password" placeholder="Confirm Password" required>
+                <i class='bx bxs-lock'></i>
+            </div>
+
+            <a href="dd_index.html">
+                <button class="login-button" type="button">Sign Up</button>
+            </a>
+            
+
+            <h5 class="dont-have-an-account">
+                Already have an account? <a href="#" onclick="showLogin()"><b>Login</b></a>
+            </h5>
+        </form>
+    </div>
+
+    <script>
+        function showSignUp() {
+            document.getElementById("login-form").style.display = "none";
+            document.getElementById("signup-form").style.display = "block";
+        }
+
+        function showLogin() {
+            document.getElementById("signup-form").style.display = "none";
+            document.getElementById("login-form").style.display = "block";
+        }
+
+        function loginUser(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Redirect to the Home Page (dd_index.html)
+            window.location.href = "dd_index.html";
+
+            return false;
+        }
+    </script>
+
+</body>
+</html>
