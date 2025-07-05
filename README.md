@@ -61,11 +61,6 @@ Or deploy it on GitHub Pages:
 
 ---
 
-## 📌 Screenshots
-
-(Add screenshots of your home page, editor, calendar, etc. here using `![alt text](image-url)` format)
-
----
 
 ## 📧 Contact
 
