@@ -1,7 +1,13 @@
+
 # 📔 Digital Diary
 
 **Digital Diary** is a personal journaling web application that allows users to securely record and organize their thoughts, experiences, and media entries. It includes features such as customizable themes, voice recording, image uploads, and alignment tools — offering a rich and personalized writing experience.
 
+---
+
+🔗 **Live Site**: [https://harshitha-somu.github.io/Digital-Diary/](https://harshitha-somu.github.io/Digital-Diary/)
+
+---
 
 ## ✨ Features
 
@@ -14,10 +20,11 @@
 - 🛠️ **Settings Page** to personalize preferences.
 - 🔐 **Login & Sign-up Interface** for secure access.
 
+---
 
 ## 📁 Project Structure
 
-
+```
 Digital-Diary/
 ├── index.html               # Homepage (renamed from dd_index.html)
 ├── dd_about.html            # About the project
@@ -27,9 +34,9 @@ Digital-Diary/
 ├── dd_login.html            # Login and Sign-up form
 ├── edit_entry.html          # Entry editing page
 └── assets/                  # (Optional) Add images, CSS, JS here
+```
 
-
-
+---
 
 ## 🚀 How to Run
 
@@ -41,9 +48,9 @@ Or deploy it on GitHub Pages:
 - Go to **Settings > Pages**
 - Choose branch `main` and root (`/`)
 - Your site will be live at:  
-  `https://your-username.github.io/Digital-Diary/`
+  `https://harshitha-somu.github.io/Digital-Diary/`
 
-
+---
 
 ## 🛠 Technologies Used
 
@@ -52,20 +59,20 @@ Or deploy it on GitHub Pages:
 - JavaScript
 - Boxicons & Font Awesome for icons
 
-
+---
 
 ## 📌 Screenshots
 
 (Add screenshots of your home page, editor, calendar, etc. here using `![alt text](image-url)` format)
 
-
+---
 
 ## 📧 Contact
 
 Created by **Harshitha Somu**  
 Feel free to reach out on [LinkedIn](https://www.linkedin.com/in/harshitha-somu) or [GitHub](https://github.com/harshitha-somu)
 
-
+---
 
 ## 📃 License
 
